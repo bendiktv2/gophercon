@@ -9,7 +9,6 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-
 		appLabels := pulumi.StringMap{
 			"app": pulumi.String("nginx"),
 		}
@@ -18,7 +17,7 @@ func main() {
 				Selector: &metav1.LabelSelectorArgs{
 					MatchLabels: appLabels,
 				},
-				Replicas: pulumi.Int(1),
+				Replicas: pulumi.Int(3),
 				Template: &corev1.PodTemplateSpecArgs{
 					Metadata: &metav1.ObjectMetaArgs{
 						Labels: appLabels,
@@ -28,7 +27,8 @@ func main() {
 							corev1.ContainerArgs{
 								Name:  pulumi.String("nginx"),
 								Image: pulumi.String("nginx"),
-							}},
+							},
+						},
 					},
 				},
 			},
